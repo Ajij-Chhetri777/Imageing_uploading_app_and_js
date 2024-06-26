@@ -1,0 +1,84 @@
+{% extends 'index.html' %}
+{% block content %}
+
+
+<div class = "beforeposting" id = "click">
+    <h4> What's on your mind? Wanna post </h4> <a>Click here </a>
+
+</div>
+        {% if user.is_authenticated %} 
+        <div class = "post" id = "post">
+            <span id = "nice" font-size = "30px"> &times; </span>    
+    <form enctype = "multipart/form-data" method = "POST">
+        {% csrf_token %}
+    {{form.as_p}}
+   <button type = "submit">Post </button>
+    </form>
+    </div>
+    {% else %}
+    <h4> you haven't authenticated </h4>
+    {% endif %}
+
+
+
+<div class = "mypost" >
+    {% for post in posts %}
+ <h1><a href = "{% url 'get_view' post.id%}">{{post.id}} {{post.title}} </a></h1>
+<p> {{post.description }}</p>
+<img src="{{post.images.url}}" alt="ok">
+{% endfor %}
+</div>
+
+
+<script>
+// these few line of code is about block
+    var clicks = document.getElementById("click");
+    var postss = document.getElementById("post");
+    var spanss = document.getElementById("nice");
+    clicks.onclick = function(){
+    postss.style.display = "block";
+    }
+    spanss.onclick = function(){
+        postss.style.display = "none";
+    }
+
+
+
+</script>
+
+{% endblock%}
+{% comment %} {% url 'get_view' post.id%} {% endcomment %}
+{% block title %}
+<style>
+.beforeposting{
+    text-align: center;
+    padding: 50px;
+    margin: 50px;
+}
+.beforeposting h4 {
+    background-color: wheat;
+}
+.beforeposting a{
+    text-decoration: none;
+    background-color: sandybrown;
+    height : 40px;
+    width : 80px;
+
+}
+.post{
+    display : none;
+    text-align: center;
+    background-color: orange;
+}
+.mypost{
+    text-align: center;
+}
+
+
+
+
+
+
+
+</style>
+{% endblock %}

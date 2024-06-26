@@ -1,0 +1,19 @@
+.nav{
+    text-align: center;
+    font-size: 50px;
+    background-color: cadetblue;
+}
+.nav a{
+ 
+    color: cornflowerblue;
+    text-decoration: none;
+
+}
+.mypost img{
+    height: 100px;
+    width: 50 px;
+    
+}
+.post{
+    display: none;
+}

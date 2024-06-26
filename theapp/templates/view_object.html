@@ -1,0 +1,55 @@
+{% extends 'index.html' %}
+{% block content %}
+<div class = "view">
+    <h1> {{objects.title}}</h1>
+<p> {{objects.description}} </p>
+
+<img src="{{objects.images.url}}" alt="ok">
+</div>
+<form method = "POST"  >
+    {% csrf_token %}
+    {{form.as_p}}
+    <button type = "submit" name ="submitButton"  value = "comment" >Submit </button>
+</form>
+<div class ="comments" >
+    <h2>There are {{count}} comments </h2>
+    {% for c in comments %}
+    <h3>
+        ${{c.user}}
+    </h3>
+    <p>
+    {{c.post}}
+    </p>
+    {% if c.user != request.user %}
+    <form method = "POST"  >
+        {% csrf_token %}
+        {{replys.as_p}}
+        <button type = "submit" name = "submitButton" value = "reply">reply </button>
+    </form>
+    {% endif %}
+   
+    {% endfor %}
+
+</div>
+<div class = "reply">
+    {% for c in reply %}
+    <h3> {{c.line}}
+    </h3>
+    <p>{{c.user}}
+    </p>
+    {% endfor %}
+    </div>
+{% comment %} <form method = "POST"  >
+    {% csrf_token %}
+    {{replys.as_p}}
+    <button type = "submit" name = "submitButton" value = "reply">post </button>
+</form>
+<div class = "reply">
+{% for c in reply %}
+<h3> {{c.line}}
+</h3>
+<p>{{c.user}}
+</p>
+{% endfor %}
+</div> {% endcomment %}
+    {% endblock %}
